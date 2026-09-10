@@ -1,0 +1,27 @@
+//maximum sum subarray
+#include<stdio.h>
+int main(){
+	int a[1000],i,n;
+	int currentsum,maxsum;
+	printf("Enter number of elements in the array : \n");
+	scanf("%d",&n);
+	printf("Enter the array elements : \n");
+	for(i=0;i<=n-1;i++){
+		scanf("%d",&a[i]);
+	}
+	 currentsum=a[0];
+	 maxsum=a[0];
+	for(i=0;i<n;i++){
+		if(currentsum+a[i]>=a[i]){
+			currentsum=currentsum+a[i];
+		}
+		else{
+			currentsum=a[i];
+		}
+		if(currentsum>maxsum){
+			maxsum=currentsum;
+		}
+	}
+	printf("Maxsum = %d",maxsum);
+	return 0;
+}
