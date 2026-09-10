@@ -1,0 +1,66 @@
+// Fractional Knapsack
+#include <stdio.h>
+void main()
+{
+    float weight[100], profit[100], ratio[100];
+    float capacity, totalprofit = 0;
+    int n, i, j;
+    printf("Enter number of elements : \n");
+    scanf("%d", &n);
+    printf("Enter capacity : \n");
+    scanf("%f", &capacity);
+    printf("Enter the weights of each element : \n");
+    for(i = 0; i <= n - 1; i++)
+    {
+        scanf("%f", &weight[i]);
+    }
+    printf("Enter the profits for each corresponding element : \n");
+    for(i = 0; i <= n - 1; i++)
+    {
+        scanf("%f", &profit[i]);
+        ratio[i] = profit[i] / weight[i];
+    }
+    // Sort according to decreasing profit/weight ratio
+    for(i = 0; i <= n - 1; i++)
+    {
+        for(j = i + 1; j < n; j++)
+        {
+            if(ratio[i] < ratio[j])
+            {
+                float temp;
+
+                // Swap ratio
+                temp = ratio[i];
+                ratio[i] = ratio[j];
+                ratio[j] = temp;
+
+                // Swap weight
+                temp = weight[i];
+                weight[i] = weight[j];
+                weight[j] = temp;
+
+                // Swap profit
+                temp = profit[i];
+                profit[i] = profit[j];
+                profit[j] = temp;
+            }
+        }
+    }
+    // Fill the knapsack
+    for(i = 0; i < n; i++)
+    {
+        if(capacity >= weight[i])
+        {
+            capacity = capacity - weight[i];
+            totalprofit = totalprofit + profit[i];
+        }
+        else
+        {
+            totalprofit = totalprofit + ratio[i] * capacity;
+            capacity = 0;
+            break;
+        }
+    }
+
+    printf("Maximum profit = %.2f\n", totalprofit);
+}
