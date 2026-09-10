@@ -1,0 +1,56 @@
+//finding min and max elements using divide and conquer strategy
+#include <stdio.h>
+int min, max;
+void findMinMax(int a[], int low, int high)
+{
+    int mid;
+    int min1, max1, min2, max2;
+    if (low == high)
+    {
+        min = max = a[low];
+        return;
+    }
+    if (high == low + 1)
+    {
+        if (a[low] < a[high])
+        {
+            min = a[low];
+            max = a[high];
+        }
+        else
+        {
+            min = a[high];
+            max = a[low];
+        }
+        return;
+    }
+    mid = (low + high) / 2;
+    findMinMax(a, low, mid);
+    min1 = min;
+    max1 = max;
+    findMinMax(a, mid + 1, high);
+    min2 = min;
+    max2 = max;
+    if (min1 < min2)
+        min = min1;
+    else
+        min = min2;
+    if (max1 > max2)
+        max = max1;
+    else
+        max = max2;
+}
+int main()
+{
+    int a[100], n, i;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+    printf("Enter elements:\n");
+    for (i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+    findMinMax(a, 0, n - 1);
+    printf("Minimum = %d\n", min);
+    printf("Maximum = %d\n", max);
+
+    return 0;
+}
